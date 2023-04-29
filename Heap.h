@@ -48,6 +48,22 @@ private:
 	 */
 	void percolateDown(long unsigned int index)
 	{
+		long unsigned int left = 2 * index + 1;
+		long unsigned int right = 2 * index + 2;
+		long unsigned int smallest = index;
+		
+		if (left < size() && _items[left] < _items[smallest]) {
+			smallest = left;
+		}
+
+		if (right < size() && _items[right] < _items[smallest]) {
+			smallest = right;
+		}
+
+		if (smallest != index) {
+			std::swap(_items[index], _items[smallest]);
+			percolateDown(smallest);
+		}
 
 	}
 
@@ -59,9 +75,15 @@ private:
 	 */
 	void percolateUp( long unsigned int current_position )
 	{
-
+		long unsigned int parent = (current_position - 1) / 2;
+		
+		while (current_position > 0 && _items[current_position] < _items[parent]) {
+			std::swap(_items[current_position], _items[parent]);
+			current_position = parent;
+			parent = (current_position - 1) / 2;
+		}
 	}
-
+	
 /********************** End Microassigment zone *********************/
 
 public:
